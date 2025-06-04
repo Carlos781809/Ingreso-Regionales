@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Dirección General</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 30px;
+      background-color: #f0f8ff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+
+    h1 {
+      margin-bottom: 40px;
+      color: #2e8b57;
+    }
+
+    .contenedor-cuadros {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+    }
+
+    .cuadro {
+      background-color: white;
+      border: 2px solid #a2d5ac; /* borde verde suave */
+      border-radius: 10px;
+      box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+      padding: 25px 40px;
+      font-size: 18px;
+      cursor: pointer;
+      transition: border 0.3s, transform 0.2s;
+    }
+
+    .cuadro:hover {
+      border: 2px solid #8fcf9b; /* un poco más fuerte pero aún suave */
+      transform: scale(1.03);
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Dirección General</h1>
+
+  <div class="contenedor-cuadros">
+    <div class="cuadro">Torre Sur</div>
+    <div class="cuadro">Torre Central</div>
+    <div class="cuadro">Torre Norte</div>
+  </div>
+
+ <script>
+    function toggleList(id) {
+      const list = document.getElementById(id);
+      list.style.display = list.style.display === 'block' ? 'none' : 'block';
+    }
+
+    function goToIDF(idfId, sedeId) {
+      const folder = sedeId === 'list1' ? 'Despacho_Direccion' : 'Centro_Biodiversidad';
+      window.location.href = `Informacion_${folder}/informacion_${idfId.toLowerCase()}.html`;
+    }
+
+    function generateIDFButtons(containerId, count) {
+      const container = document.getElementById(containerId);
+      for (let i = 1; i <= count; i++) {
+        const btn = document.createElement('button');
+        const idfName = `IDF${i}`;
+        btn.textContent = idfName;
+        btn.onclick = () => goToIDF(idfName, containerId);
+        container.appendChild(btn);
+      }
+    }
+
+    generateIDFButtons('list1', 10);
+    generateIDFButtons('list2', 10);
+  </script>
+
+</body>
+</html>

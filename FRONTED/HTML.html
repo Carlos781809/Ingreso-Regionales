@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Ingreso Personal Autorizado</title>
+  <style>
+
+
+
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-image: url(fotillos/PP4053273A-h-s.webp);
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      font-family: Arial, sans-serif;
+    }
+
+    .cuadro {
+      background-color: aquamarine;
+      padding: 30px;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .cuadro label {
+      display: block;
+      margin-top: 10px;
+    }
+
+    .cuadro input {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .cuadro button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 10px;
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .cuadro button:hover {
+      background-color: #45a049;
+    }
+
+    
+    
+  </style>
+  
+</head>
+
+<body>
+  
+    
+
+
+  <div class="cuadro">
+    <form id="Registro">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" required>
+
+      <label for="cedula">Cédula:</label>
+      <input type="number" id="cedula" name="cedula" required>
+
+      <label for="contraseña">Contraseña:</label>
+      <input type="text" id="contraseña" name="contraseña" required>
+
+      
+      <a href="REGIONAL.html"> 
+      <button type="button sesion" id="ingresar">Ingresar</button>
+    </a>  
+
+  </div>
+    <button type="button" id="sesion">inicia sesion</button>
+</body>
+</html>

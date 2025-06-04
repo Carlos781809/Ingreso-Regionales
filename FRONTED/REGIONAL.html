@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Buscar con cuadros</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 30px;
+      background-color: #f0f8ff;
+      font-family: Arial, sans-serif;
+    }
+
+    /* Barra de búsqueda */
+    .barra-busqueda {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 30px;
+    }
+
+    .barra-busqueda input {
+      padding: 10px;
+      font-size: 16px;
+      width: 300px;
+      border-radius: 8px 0 0 8px;
+      border: 1px solid #f0f8ff;
+      outline: none;
+    }
+
+    .barra-busqueda span {
+      background-color: #f0f8ff;
+      padding: 10px 15px;
+      border: 1px solid #f0f8ff;
+      border-left: none;
+    }
+
+    .barra-busqueda button {
+      padding: 10px 15px;
+      font-size: 16px;
+      border: none;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      border-radius: 0 8px 8px 0;
+    }
+
+    /* Contenedor de cuadros */
+    .contenedor-cuadros {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 20px;
+    }
+
+    .cuadro {
+  display: inline-block;
+  background-color: white;
+  border: 2px solid #4CAF50;
+  border-radius: 10px;
+  box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 15px 20px;
+  font-size: 16px;
+  white-space: nowrap; /* evita que se parta en varias líneas */
+}
+
+.cuadro:hover {
+  border-color: #8fd19e; /* verde suave */
+  transition: border-color 0.3s ease;
+  cursor: pointer;
+}
+
+  </style>
+</head>
+<body>
+
+  <div class="barra-busqueda">
+    <span>🔍 Buscar</span>
+    <input type="text" placeholder="Escribe aquí...">
+    <button>➤</button>
+  </div>
+
+  <div class="contenedor-cuadros">
+    <div class="cuadro" data-pagina="Direccion General.html">Direccion General</div>
+    <div class="cuadro" data-pagina="Antioquia.html">Antioquia</div>
+    <div class="cuadro" data-pagina="Atlantico.html">Atlantico</div>
+    <div class="cuadro" data-pagina="Distrito Capital.html">Distrito Capital</div>
+    <div class="cuadro" data-pagina="Bolivar.html">Bolivar</div>
+    <div class="cuadro" data-pagina="Boyaca.html">Boyaca</div>
+    <div class="cuadro" data-pagina="Caldas.html">Caldas</div>
+    <div class="cuadro" data-pagina="Caqueta.html">Caqueta</div>
+    <div class="cuadro" data-pagina="Cauca.html">Cauca</div>
+    <div class="cuadro" data-pagina="Cesar.html">Cesar</div>
+    <div class="cuadro" data-pagina="Cordoba.html">Cordoba</div>
+    <div class="cuadro" data-pagina="Cundinamarca.html">Cundinamarca</div>
+    <div class="cuadro" data-pagina="Choco.html">Choco</div>
+    <div class="cuadro" data-pagina="Huila.html">Huila</div>
+    <div class="cuadro" data-pagina="Guajira.html">Guajira</div>
+    <div class="cuadro" data-pagina="Magdalena.html">Magdalena</div>
+    <div class="cuadro" data-pagina="meta.html">Meta</div>
+    <div class="cuadro" data-pagina="Nariño.html">Nariño</div>
+    <div class="cuadro" data-pagina="Norte de Santander.html">Norte de Santander</div>
+    <div class="cuadro" data-pagina="Quindio.html">Quindio</div>
+    <div class="cuadro" data-pagina="Risaralda.html">Risaralda</div>
+    <div class="cuadro" data-pagina="Santander.html">Santander</div>
+    <div class="cuadro" data-pagina="Sucre.html">Sucre</div>
+    <div class="cuadro" data-pagina="Tolima.html">Tolima</div>
+    <div class="cuadro" data-pagina="Valle.html">Valle</div>
+    <div class="cuadro" data-pagina="Arauca.html">Arauca</div>
+    <div class="cuadro" data-pagina="Casanare.html">Casanare</div>
+    <div class="cuadro" data-pagina="Putumayo.html">Putumayo</div>
+    <div class="cuadro" data-pagina="San Andres.html">San Andres</div>
+    <div class="cuadro" data-pagina="Amazonas.html">Amazonas</div>
+    <div class="cuadro" data-pagina="Guainía.html">Guainía</div>
+    <div class="cuadro" data-pagina="Guaviare.html">Guaviare</div>
+    <div class="cuadro" data-pagina="Vaupes.html">Vaupes</div>
+    <div class="cuadro" data-pagina="Vichada.html">Vichada</div>
+    
+  </div>
+
+</body>
+<script>
+const inputBusqueda = document.querySelector('.barra-busqueda input');
+const botonBusqueda = document.querySelector('.barra-busqueda button');
+const cuadros = document.querySelectorAll('.cuadro');
+
+function filtrarCuadros() {
+  const texto = inputBusqueda.value.toLowerCase().trim();
+
+  cuadros.forEach(cuadro => {
+    const contenido = cuadro.textContent.toLowerCase();
+    if (contenido.includes(texto)) {
+      cuadro.style.display = 'inline-block';
+    } else {
+      cuadro.style.display = 'none';
+    }
+  });
+}
+
+inputBusqueda.addEventListener('input', filtrarCuadros);
+botonBusqueda.addEventListener('click', filtrarCuadros);
+
+cuadros.forEach(cuadro => {
+  cuadro.ondblclick = () => {
+    const nombre = cuadro.textContent.trim();
+    const ruta = `${nombre}/${nombre}.html`;
+    window.location.href = ruta;
+  };
+});
+
+
+  
+</script>
+
+</html>
