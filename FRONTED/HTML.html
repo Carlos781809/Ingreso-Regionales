@@ -4,25 +4,19 @@
   <meta charset="UTF-8">
   <title>Ingreso Personal Autorizado</title>
   <style>
-
-
-
     body {
       margin: 0;
       height: 100vh;
       display: flex;
+      background-color: #ccc;
       justify-content: center;
       align-items: center;
-      background-image: url(fotillos/PP4053273A-h-s.webp);
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
       background-attachment: fixed;
       font-family: Arial, sans-serif;
     }
 
     .cuadro {
-      background-color: aquamarine;
+      background-color: rgb(255, 255, 255);
       padding: 30px;
       border-radius: 10px;
       width: 300px;
@@ -38,7 +32,7 @@
       width: 100%;
       padding: 8px;
       margin-top: 5px;
-      border: 1px solid #ccc;
+      border: 1px solid #000000;
       border-radius: 5px;
     }
 
@@ -47,7 +41,7 @@
       width: 100%;
       padding: 10px;
       background-color: #4CAF50;
-      color: white;
+      color: rgb(0, 0, 0);
       border: none;
       border-radius: 5px;
       cursor: pointer;
@@ -57,34 +51,100 @@
       background-color: #45a049;
     }
 
-    
-    
+    #Registrate {
+      position: relative;
+      top: 180px;
+      right: 267px;
+      background-color: #062D4F;
+      color: #CCC;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 14px;
+    }
+
+    #Registrate:hover {
+      background-color: #062D6F;
+    }
+
+    .mensaje-error {
+      color: red;
+      font-size: 12px;
+      height: 14px;
+      margin-top: 4px;
+    }
   </style>
-  
 </head>
-
 <body>
-  
-    
-
-
   <div class="cuadro">
     <form id="Registro">
-      <label for="nombre">Nombre:</label>
+      <label for="nombre">Nombre (Correo institucional):</label>
       <input type="text" id="nombre" name="nombre" required>
+      <div id="error-nombre" class="mensaje-error"></div>
 
       <label for="cedula">Cédula:</label>
       <input type="number" id="cedula" name="cedula" required>
+      <div id="error-cedula" class="mensaje-error"></div>
 
       <label for="contraseña">Contraseña:</label>
-      <input type="text" id="contraseña" name="contraseña" required>
+      <input type="password" id="contraseña" name="contraseña" required>
+      <div id="error-contraseña" class="mensaje-error"></div>
 
-      
-      <a href="REGIONAL.html"> 
-      <button type="button sesion" id="ingresar">Ingresar</button>
-    </a>  
-
+      <button type="button" id="ingresar">Ingresar</button>
+    </form>
   </div>
-    <button type="button" id="sesion">inicia sesion</button>
+
+  <a href="inicia_sesion.html">
+    <button type="button" id="Registrate">Registra una cuenta</button>
+  </a>
+
+  <script>
+    const btnIngresar = document.getElementById("ingresar");
+    const nombre = document.getElementById("nombre");
+    const cedula = document.getElementById("cedula");
+    const contraseña = document.getElementById("contraseña");
+
+    const msgNombre = document.getElementById("error-nombre");
+    const msgCedula = document.getElementById("error-cedula");
+    const msgContra = document.getElementById("error-contraseña");
+
+    btnIngresar.addEventListener("click", function () {
+      let valido = true;
+
+      msgNombre.textContent = "";
+      msgCedula.textContent = "";
+      msgContra.textContent = "";
+
+      const correo = nombre.value.trim().toLowerCase();
+      if (!correo || (!correo.endsWith("@sena.edu.co") && !correo.endsWith("@soy.sena.edu.co"))) {
+        msgNombre.textContent = "Nombre no válido. Usa tu correo institucional.";
+        resaltarCampo(nombre);
+        valido = false;
+      }
+
+      if (!cedula.value.trim()) {
+        msgCedula.textContent = "Cédula requerida.";
+        resaltarCampo(cedula);
+        valido = false;
+      }
+
+      if (!contraseña.value.trim()) {
+        msgContra.textContent = "Contraseña requerida.";
+        resaltarCampo(contraseña);
+        valido = false;
+      }
+
+      if (valido) {
+        window.location.href = "REGIONAL.html";
+      }
+    });
+
+    function resaltarCampo(input) {
+      input.style.border = "2px solid red";
+      setTimeout(() => {
+        input.style.border = "1px solid #000000";
+      }, 2000);
+    }
+  </script>
 </body>
 </html>

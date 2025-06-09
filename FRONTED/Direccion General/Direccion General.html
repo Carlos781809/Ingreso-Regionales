@@ -7,14 +7,14 @@
     body {
       margin: 0;
       padding: 30px;
-      background-color: #f0f8ff;
+      background-color: #ccc;
       font-family: Arial, sans-serif;
       text-align: center;
     }
 
     h1 {
       margin-bottom: 40px;
-      color: #2e8b57;
+      color: #062D4F;
     }
 
     .contenedor-cuadros {
@@ -26,7 +26,7 @@
 
     .cuadro {
       background-color: white;
-      border: 2px solid #a2d5ac; /* borde verde suave */
+      border: 2px solid #062D4F;
       border-radius: 10px;
       box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
       padding: 25px 40px;
@@ -36,8 +36,27 @@
     }
 
     .cuadro:hover {
-      border: 2px solid #8fcf9b; /* un poco más fuerte pero aún suave */
+      border: 2px solid #062D9F;
       transform: scale(1.03);
+    }
+
+    .idf-list {
+      margin-top: 10px;
+    }
+
+    .idf-list button {
+      display: block;
+      margin: 6px auto;
+      padding: 10px 20px;
+      background-color: #d9dbf0;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .idf-list button:hover {
+      background-color: #c8f5d4;
     }
   </style>
 </head>
@@ -46,35 +65,41 @@
   <h1>Dirección General</h1>
 
   <div class="contenedor-cuadros">
-    <div class="cuadro">Torre Sur</div>
-    <div class="cuadro">Torre Central</div>
-    <div class="cuadro">Torre Norte</div>
+    <div class="cuadro">
+      Torre Sur
+      <div class="idf-list">
+        <button onclick="goToIDF('IDF4', 'torresur')">IDF4</button>
+        <button onclick="goToIDF('IDF5', 'torresur')">IDF5</button>
+        <button onclick="goToIDF('IDF10', 'torresur')">IDF10</button>
+      </div>
+    </div>
+
+    <div class="cuadro">
+      Torre Central
+      <div class="idf-list">
+        <button onclick="goToIDF('MDF', 'torrecentral')">MDF</button>
+        <button onclick="goToIDF('IDF2', 'torrecentral')">IDF2</button>
+        <button onclick="goToIDF('IDF3', 'torrecentral')">IDF3</button>
+        <button onclick="goToIDF('IDF1', 'torrecentral')">IDF1</button>
+      </div>
+    </div>
+
+    <div class="cuadro">
+      Torre Norte
+      <div class="idf-list">
+        <button onclick="goToIDF('IDF6', 'torrenorte')">IDF6</button>
+        <button onclick="goToIDF('IDF7', 'torrenorte')">IDF7</button>
+        <button onclick="goToIDF('IDF8', 'torrenorte')">IDF8</button>
+        <button onclick="goToIDF('IDF9', 'torrenorte')">IDF9</button>
+      </div>
+    </div>
   </div>
 
- <script>
-    function toggleList(id) {
-      const list = document.getElementById(id);
-      list.style.display = list.style.display === 'block' ? 'none' : 'block';
-    }
-
+  <script>
     function goToIDF(idfId, sedeId) {
-      const folder = sedeId === 'list1' ? 'Despacho_Direccion' : 'Centro_Biodiversidad';
+      const folder = 'Despacho_Direccion';
       window.location.href = `Informacion_${folder}/informacion_${idfId.toLowerCase()}.html`;
     }
-
-    function generateIDFButtons(containerId, count) {
-      const container = document.getElementById(containerId);
-      for (let i = 1; i <= count; i++) {
-        const btn = document.createElement('button');
-        const idfName = `IDF${i}`;
-        btn.textContent = idfName;
-        btn.onclick = () => goToIDF(idfName, containerId);
-        container.appendChild(btn);
-      }
-    }
-
-    generateIDFButtons('list1', 10);
-    generateIDFButtons('list2', 10);
   </script>
 
 </body>

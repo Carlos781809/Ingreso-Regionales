@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Registro SENA</title>
+  <style>
+    body {
+      background-color: #ccc;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      font-family: 'Arial', sans-serif;
+    }
+
+    .cuadrito {
+      background-color: #ffffff;
+      border: 2px solid #062D4F;
+      border-radius: 15px;
+      padding: 30px;
+      width: 320px;
+      box-shadow: 0 0 15px #171717;
+    }
+
+    .cuadrito label {
+      display: block;
+      margin-top: 15px;
+      font-size: 14px;
+      color: #062D4F;
+    }
+
+    .cuadrito input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #062D4F;
+      border-radius: 5px;
+      background-color: #ffffff;
+      color: #000000;
+      outline: none;
+    }
+
+    #registrarse {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      background: #ffffff;
+      color: #062D4F;
+      border: 2px solid #062D4F;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    #registrarse:hover {
+      background: #062D4F;
+      color: #ccc;
+    }
+  </style>
+</head>
+<body>
+  <div class="cuadrito">
+    <form id="formRegistro">
+      <label for="nombre">Nombre:</label>
+      <input type="text" id="nombre" name="nombre" required>
+
+      <label for="cedula">Cédula:</label>
+      <input type="number" id="cedula" name="cedula" required>
+
+      <label for="correo">Correo SENA:</label>
+      <input type="email" id="correo" name="correo" required>
+
+      <label for="contraseña">Contraseña:</label>
+      <input type="password" id="contraseña" name="contraseña" required>
+
+      <label for="confirmar">Confirmar Contraseña:</label>
+      <input type="password" id="confirmar" name="confirmar" required>
+
+      <button type="submit" id="registrarse">Registrarse</button>
+    </form>
+  </div>
+
+  <script>
+    document.getElementById('formRegistro').addEventListener('submit', function (e) {
+      e.preventDefault();
+
+      const nombre = document.getElementById('nombre').value;
+      const cedula = document.getElementById('cedula').value;
+      const correo = document.getElementById('correo').value;
+      const contrasena = document.getElementById('contraseña').value;
+      const confirmar = document.getElementById('confirmar').value;
+
+      if (!correo.endsWith('@sena.edu.co') && !correo.endsWith('@soy.sena.edu.co')) {
+        alert('Solo se permiten correos @sena.edu.co o @soy.sena.edu.co');
+        return;
+      }
+
+      if (contrasena !== confirmar) {
+        alert('Las contraseñas no coinciden.');
+        return;
+      }
+
+      localStorage.setItem('registroSENA', JSON.stringify({ nombre, cedula, correo, contrasena }));
+      alert('Usuario registrado correctamente. Ahora puede iniciar sesión.');
+      window.location.href = 'index.html'; // Redirige al login
+    });
+  </script>
+</body>
+</html>
