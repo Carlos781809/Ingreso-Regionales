@@ -1,150 +1,42 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <title>Ingreso Personal Autorizado</title>
-  <style>
-    body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      background-color: #ccc;
-      justify-content: center;
-      align-items: center;
-      background-attachment: fixed;
-      font-family: Arial, sans-serif;
-    }
+<?php
+// Conexión a la base de datos
+$conexion = new mysqli("localhost", "root", "", "usuarios_sena");
 
-    .cuadro {
-      background-color: rgb(255, 255, 255);
-      padding: 30px;
-      border-radius: 10px;
-      width: 300px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-    }
+// Verificar si hubo error de conexión
+if ($conexion->connect_error) {
+    die("Error al conectar a la base de datos: " . $conexion->connect_error);
+}
 
-    .cuadro label {
-      display: block;
-      margin-top: 10px;
-    }
+// Obtener los datos del formulario
+$nombre = $_POST['nombre'] ?? '';
+$cedula = $_POST['cedula'] ?? '';
+$correo = $_POST['correo'] ?? '';
+$contraseña = $_POST['contraseña'] ?? '';
 
-    .cuadro input {
-      width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border: 1px solid #000000;
-      border-radius: 5px;
-    }
+// Validar que los campos no estén vacíos
+if (empty($nombre) || empty($cedula) || empty($correo) || empty($contraseña)) {
+    echo "Por favor completa todos los campos.";
+    exit();
+}
 
-    .cuadro button {
-      margin-top: 15px;
-      width: 100%;
-      padding: 10px;
-      background-color: #4CAF50;
-      color: rgb(0, 0, 0);
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-    }
+// Buscar al usuario en la base de datos
+$sql = "SELECT * FROM usuarios WHERE nombre = ? AND cedula = ? AND correo = ? AND contraseña = ?";
+$stmt = $conexion->prepare($sql);
+$stmt->bind_param("ssss", $nombre, $cedula, $correo, $contraseña);
+$stmt->execute();
+$resultado = $stmt->get_result();
 
-    .cuadro button:hover {
-      background-color: #45a049;
-    }
+// Verificar si existe
+if ($resultado->num_rows > 0) {
+    // Usuario válido
+    echo "Acceso permitido. Bienvenido, $nombre 🥺💚";
+    // Aquí puedes redirigir con: header("Location: REGIONAL.html");
+} else {
+    // Usuario no registrado
+    echo "Acceso denegado. Usuario no registrado o datos incorrectos ❌";
+}
 
-    #Registrate {
-      position: relative;
-      top: 210px;
-      right: 267px;
-      background-color: #062D4F;
-      color: #CCC;
-      padding: 10px 20px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 14px;
-    }
-
-    #Registrate:hover {
-      background-color: #062D6F;
-    }
-
-    .mensaje-error {
-      color: red;
-      font-size: 12px;
-      height: 14px;
-      margin-top: 4px;
-    }
-  </style>
-</head>
-<body>
-  <div class="cuadro">
-    <form id="Registro">
-      <label for="nombre">Nombre (Correo institucional):</label>
-      <input type="text" id="nombre" name="nombre" required>
-      <div id="error-nombre" class="mensaje-error"></div>
-
-      <label for="cedula">Cédula:</label>
-      <input type="number" id="cedula" name="cedula" required>
-      <div id="error-cedula" class="mensaje-error"></div>
-
-      <label for="contraseña">Contraseña:</label>
-      <input type="password" id="contraseña" name="contraseña" required>
-      <div id="error-contraseña" class="mensaje-error"></div>
-
-      <button type="button" id="ingresar">Ingresar</button>
-    </form>
-  </div>
-
-  <a href="inicia_sesion.html">
-    <button type="button" id="Registrate">Registra una cuenta</button>
-  </a>
-
-  <script>
-    const btnIngresar = document.getElementById("ingresar");
-    const nombre = document.getElementById("nombre");
-    const cedula = document.getElementById("cedula");
-    const contraseña = document.getElementById("contraseña");
-
-    const msgNombre = document.getElementById("error-nombre");
-    const msgCedula = document.getElementById("error-cedula");
-    const msgContra = document.getElementById("error-contraseña");
-
-    btnIngresar.addEventListener("click", function () {
-      let valido = true;
-
-      msgNombre.textContent = "";
-      msgCedula.textContent = "";
-      msgContra.textContent = "";
-
-      const correo = nombre.value.trim().toLowerCase();
-      if (!correo || (!correo.endsWith("@sena.edu.co") && !correo.endsWith("@soy.sena.edu.co"))) {
-        msgNombre.textContent = "Nombre no válido. Usa tu correo institucional.";
-        resaltarCampo(nombre);
-        valido = false;
-      }
-
-      if (!cedula.value.trim()) {
-        msgCedula.textContent = "Cédula requerida.";
-        resaltarCampo(cedula);
-        valido = false;
-      }
-
-      if (!contraseña.value.trim()) {
-        msgContra.textContent = "Contraseña requerida.";
-        resaltarCampo(contraseña);
-        valido = false;
-      }
-
-      if (valido) {
-        window.location.href = "REGIONAL.html";
-      }
-    });
-
-    function resaltarCampo(input) {
-      input.style.border = "2px solid red";
-      setTimeout(() => {
-        input.style.border = "1px solid #000000";
-      }, 2000);
-    }
-  </script>
-</body>
-</html>
+// Cerrar conexión
+$stmt->close();
+$conexion->close();
+?>
