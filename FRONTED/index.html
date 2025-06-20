@@ -11,135 +11,73 @@
       background-color: #ccc;
       justify-content: center;
       align-items: center;
-      background-attachment: fixed;
       font-family: Arial, sans-serif;
     }
 
     .cuadro {
-      background-color: rgb(255, 255, 255);
+      background-color: #fff;
       padding: 30px;
       border-radius: 10px;
       width: 300px;
       box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
     }
 
-    .cuadro label {
-      display: block;
-      margin-top: 10px;
-    }
-
     .cuadro input {
       width: 100%;
-      padding: 8px;
-      margin-top: 5px;
-      border: 1px solid #000000;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #062D4F;
       border-radius: 5px;
     }
 
     .cuadro button {
-      margin-top: 15px;
       width: 100%;
       padding: 10px;
-      background-color: #4CAF50;
-      color: rgb(0, 0, 0);
+      background-color: #062D4F;
+      color: white;
       border: none;
       border-radius: 5px;
       cursor: pointer;
     }
 
     .cuadro button:hover {
-      background-color: #45a049;
+      background-color: #041F36;
     }
 
     #Registrate {
-      position: relative;
-      top: 210px;
-      right: 267px;
+      position: absolute;
+      top: 20px;
+      right: 20px;
       background-color: #062D4F;
       color: #CCC;
-      padding: 10px 20px;
+      padding: 8px 16px;
       border-radius: 8px;
       cursor: pointer;
       font-size: 14px;
+      text-decoration: none;
     }
 
     #Registrate:hover {
       background-color: #062D6F;
     }
-
-    .mensaje-error {
-      color: red;
-      font-size: 12px;
-      height: 14px;
-      margin-top: 4px;
-    }
   </style>
 </head>
 <body>
-  <div class="cuadro">
- <form id="Registro" method="POST" action="registro.php">
+
+<a id="Registrate" href="inicia_sesion.html">Registrar cuenta</a>
+
+<div class="cuadro">
+  <form method="POST" action="login.php" autocomplete="off">
+    <!-- Campos ocultos para confundir el autocompletado -->
+    <input type="text" name="fakeusernameremembered" style="display:none">
+    <input type="password" name="fakepasswordremembered" style="display:none">
+
   
-  <input type="text" name="Nombre" placeholder="Nombre">
-  <input type="text" name="Cedula" placeholder="Cédula">
-  <input type="email" name="Correo" placeholder="Correo">
-  <input type="password" name="Contraseña" placeholder="Contraseña">
-  <button type="submit">Ingresar</button>
-</form>
+    <input type="text" name="usuario_nombre" id="usuario_nombre" placeholder="Nombre" autocomplete="off" required>
+    <input type="password" name="usuario_contraseña" id="usuario_contraseña" placeholder="Contraseña" autocomplete="new-password" required>
+    <button type="submit">Ingresar</button>
+  </form>
+</div>
 
-
-  </div>
-
-  <a href="inicia_sesion.html">
-    <button type="button" id="Registrate">Registra una cuenta</button>
-  </a>
-
-  <script>
-    const btnIngresar = document.getElementById("ingresar");
-    const nombre = document.getElementById("nombre");
-    const cedula = document.getElementById("cedula");
-    const contraseña = document.getElementById("contraseña");
-
-    const msgNombre = document.getElementById("error-nombre");
-    const msgCedula = document.getElementById("error-cedula");
-    const msgContra = document.getElementById("error-contraseña");
-
-    btnIngresar.addEventListener("click", function () {
-      let valido = true;
-
-      msgNombre.textContent = "";
-      msgCedula.textContent = "";
-      msgContra.textContent = "";
-
-      const correo = nombre.value.trim().toLowerCase();
-      if (!correo || (!correo.endsWith("@sena.edu.co") && !correo.endsWith("@soy.sena.edu.co"))) {
-        msgNombre.textContent = "Nombre no válido. Usa tu correo institucional.";
-        resaltarCampo(nombre);
-        valido = false;
-      }
-
-      if (!cedula.value.trim()) {
-        msgCedula.textContent = "Cédula requerida.";
-        resaltarCampo(cedula);
-        valido = false;
-      }
-
-      if (!contraseña.value.trim()) {
-        msgContra.textContent = "Contraseña requerida.";
-        resaltarCampo(contraseña);
-        valido = false;
-      }
-
-      if (valido) {
-        window.location.href = "REGIONAL.html";
-      }
-    });
-
-    function resaltarCampo(input) {
-      input.style.border = "2px solid red";
-      setTimeout(() => {
-        input.style.border = "1px solid #000000";
-      }, 2000);
-    }
-  </script>
 </body>
 </html>

@@ -1,3 +1,14 @@
+<?php
+session_start();
+
+if (!isset($_SESSION['activo']) || $_SESSION['activo'] !== 1) {
+    echo "<script>alert('Acceso denegado. Debes iniciar sesión.'); window.location.href = 'index.html';</script>";
+    exit();
+}
+
+// Aquí puedes seguir con el contenido normal de REGIONAL.php
+?>
+
 <!DOCTYPE html>
 <html lang="es">
 <head>

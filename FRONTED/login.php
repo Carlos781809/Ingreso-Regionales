@@ -1,42 +1,69 @@
 <?php
-// Conexión a la base de datos
-$conexion = new mysqli("localhost", "root", "", "usuarios_sena");
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $nombreIngresado = $_POST['usuario_nombre'] ?? '';
+    $contraseñaIngresada = $_POST['usuario_contraseña'] ?? '';
 
-// Verificar si hubo error de conexión
-if ($conexion->connect_error) {
-    die("Error al conectar a la base de datos: " . $conexion->connect_error);
-}
+    if (empty($nombreIngresado) || empty($contraseñaIngresada)) {
+        echo "<script>alert('Por favor, completa todos los campos'); window.history.back();</script>";
+        exit();
+    }
 
-// Obtener los datos del formulario
-$nombre = $_POST['nombre'] ?? '';
-$cedula = $_POST['cedula'] ?? '';
-$correo = $_POST['correo'] ?? '';
-$contraseña = $_POST['contraseña'] ?? '';
+    class MiBD extends SQLite3 {
+        function __construct() {
+            $this->open('usuarios.db');
+        }
+    }
 
-// Validar que los campos no estén vacíos
-if (empty($nombre) || empty($cedula) || empty($correo) || empty($contraseña)) {
-    echo "Por favor completa todos los campos.";
-    exit();
-}
+    $db = new MiBD();
 
-// Buscar al usuario en la base de datos
-$sql = "SELECT * FROM usuarios WHERE nombre = ? AND cedula = ? AND correo = ? AND contraseña = ?";
-$stmt = $conexion->prepare($sql);
-$stmt->bind_param("ssss", $nombre, $cedula, $correo, $contraseña);
-$stmt->execute();
-$resultado = $stmt->get_result();
+    if (!$db) {
+        die("No se pudo conectar a la base de datos");
+    }
 
-// Verificar si existe
-if ($resultado->num_rows > 0) {
-    // Usuario válido
-    echo "Acceso permitido. Bienvenido, $nombre 🥺💚";
-    // Aquí puedes redirigir con: header("Location: REGIONAL.html");
+    // Buscar TODOS los usuarios
+    $stmt = $db->prepare("SELECT * FROM usuarios");
+    $result = $stmt->execute();
+
+    $usuarioEncontrado = false;
+    $nombreExactoCoincide = false;
+    $contraseñaCoincide = false;
+
+    $contraseñaHash = hash('sha256', $contraseñaIngresada); 
+    while ($usuario = $result->fetchArray(SQLITE3_ASSOC)) {
+        if (strcasecmp($usuario['nombre'], $nombreIngresado) === 0) {
+            $usuarioEncontrado = true;
+
+            if ($usuario['nombre'] === $nombreIngresado) {
+                $nombreExactoCoincide = true;
+
+                if ($usuario['contrasena'] === $contraseñaHash) { 
+                    $contraseñaCoincide = true;
+                    break;
+                }
+            }
+        }
+    }
+
+   
+    if (!$usuarioEncontrado) {
+        echo "<script>alert('Usuario no registrado'); window.history.back();</script>";
+    } elseif (!$nombreExactoCoincide) {
+        echo "<script>alert('Nombre incorrecto'); window.history.back();</script>";
+    } elseif (!$contraseñaCoincide) {
+        echo "<script>alert('Contraseña incorrecta'); window.history.back();</script>";
+    } else {
+        session_start();
+
+        $_SESSION['activo'] = 1;
+        $_SESSION['usuario'] = $nombreIngresado;
+        $_SESSION['ultima_actividad'] = time();
+
+        echo "<script>alert('Bienvenido, $nombreIngresado'); window.location.href = 'REGIONAL.php';</script>";
+
+        $db->close();
+    }
+
 } else {
-    // Usuario no registrado
-    echo "Acceso denegado. Usuario no registrado o datos incorrectos ❌";
+    echo "Acceso denegado.";
 }
-
-// Cerrar conexión
-$stmt->close();
-$conexion->close();
 ?>
