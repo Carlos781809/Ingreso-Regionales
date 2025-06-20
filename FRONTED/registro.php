@@ -34,4 +34,7 @@ if (!empty($nombre) && !empty($cedula) && !empty($correo) && !empty($contrasena)
 } else {
     echo "<script>alert('Por favor llena todos los campos'); window.history.back();</script>";
 }
+echo "<script>alert('Registro exitoso'); window.location.href = 'index.html';</script>";
+exit();
+
 ?>

@@ -1,17 +1,21 @@
 <?php
 session_start();
 
+// Bloquea el caché para evitar volver con el botón de avanzar
+header("Cache-Control: no-cache, no-store, must-revalidate");
+header("Pragma: no-cache");
+header("Expires: 0");
+
 if (!isset($_SESSION['activo']) || $_SESSION['activo'] !== 1) {
     echo "<script>alert('Acceso denegado. Debes iniciar sesión.'); window.location.href = 'index.html';</script>";
     exit();
 }
-
-// Aquí puedes seguir con el contenido normal de REGIONAL.php
 ?>
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
+  
   <meta charset="UTF-8">
   <title>REGIONALES</title>
   <style>
@@ -88,8 +92,18 @@ if (!isset($_SESSION['activo']) || $_SESSION['activo'] !== 1) {
 }
 
   </style>
+
+
+
 </head>
 <body>
+
+<form action="cerrar_sesion.php" method="post" style="position: absolute; top: 10px; right: 10px;">
+  <button type="submit" style="padding: 10px 15px; background-color: #062D4F; color: white; border: none; border-radius: 5px; cursor: pointer;">
+    Cerrar sesión
+  </button>
+</form>
+
 
   <div class="barra-busqueda">
     
