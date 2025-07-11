@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Registro de Usuario</title>
+  <style>
+    body {
+      background-color: #ccc;
+      font-family: Arial, sans-serif;
+      padding: 20px;
+    }
+
+    .form-container {
+      background-color: white;
+      padding: 30px;
+      border: 2px solid #062D4F;
+      border-radius: 20px;
+      max-width: 450px;
+      margin: auto;
+    }
+
+    h2 {
+      text-align: center;
+      color: #062D4F;
+    }
+
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #062D4F;
+      border-radius: 8px;
+    }
+
+    button {
+      background-color: #062D4F;
+      color: white;
+      padding: 10px;
+      width: 100%;
+      margin-top: 20px;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Registro de Usuario</h2>
+    <form action="registro.php" method="POST">
+      <input type="text" name="nombre" placeholder="Nombre completo" required />
+      <input type="text" name="cedula" placeholder="Cédula" required />
+      <input type="email" name="correo" placeholder="Correo electrónico" required />
+      <input type="password" name="contrasena" placeholder="Contraseña" required />
+      <input type="password" name="confirmar_contrasena" placeholder="Confirmar contraseña" required />
+
+      <select name="regional" required>
+        <option value="">Seleccione una regional</option>
+        <option value="91">Amazonas</option>
+        <option value="5">Antioquia</option>
+        <option value="81">Arauca</option>
+        <option value="8">Atlántico</option>
+        <option value="13">Bolívar</option>
+        <option value="15">Boyacá</option>
+        <option value="17">Caldas</option>
+        <option value="18">Caquetá</option>
+        <option value="85">Casanare</option>
+        <option value="19">Cauca</option>
+        <option value="20">Cesar</option>
+        <option value="27">Chocó</option>
+        <option value="23">Córdoba</option>
+        <option value="25">Cundinamarca</option>
+        <option value="1">Dirección General</option>
+        <option value="11">Distrito Capital</option>
+        <option value="94">Guainía</option>
+        <option value="44">Guajira</option>
+        <option value="95">Guaviare</option>
+        <option value="41">Huila</option>
+        <option value="47">Magdalena</option>
+        <option value="50">Meta</option>
+        <option value="52">Nariño</option>
+        <option value="54">Norte de Santander</option>
+        <option value="86">Putumayo</option>
+        <option value="63">Quindío</option>
+        <option value="66">Risaralda</option>
+        <option value="88">San Andrés</option>
+        <option value="68">Santander</option>
+        <option value="70">Sucre</option>
+        <option value="73">Tolima</option>
+        <option value="76">Valle</option>
+        <option value="97">Vaupés</option>
+        <option value="99">Vichada</option>
+      </select>
+
+      <button type="submit">Registrarse</button>
+    </form>
+  </div>
+</body>
+</html>

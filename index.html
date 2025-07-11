@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Iniciar Sesión</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #ccc;
+      padding: 20px;
+    }
+
+    .form-container {
+      background-color: white;
+      padding: 30px;
+      border: 2px solid #062D4F;
+      border-radius: 20px;
+      max-width: 400px;
+      margin: auto;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      border: 1px solid #062D4F;
+      border-radius: 8px;
+    }
+
+    button {
+      background-color: #062D4F;
+      color: white;
+      padding: 10px;
+      width: 100%;
+      margin-top: 20px;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .register-button {
+      background-color: #ccc;
+      color: #062D4F;
+      border: 2px solid #062D4F;
+    }
+
+    h2 {
+      text-align: center;
+      color: #062D4F;
+    }
+  </style>
+</head>
+<body>
+  <div class="form-container">
+    <h2>Iniciar Sesión</h2>
+    <form action="login.php" method="POST">
+      <input type="email" name="correo" placeholder="Correo electrónico" required />
+      <input type="password" name="contrasena" placeholder="Contraseña" required />
+      <button type="submit">Ingresar</button>
+    </form>
+    <form action="inicia_sesion.html" method="get">
+      <button type="submit" class="register-button">Registrarse</button>
+    </form>
+  </div>
+</body>
+</html>
